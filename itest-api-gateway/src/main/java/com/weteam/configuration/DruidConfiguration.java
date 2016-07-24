@@ -1,4 +1,4 @@
-package com.itest.configuration;
+package com.weteam.configuration;
 
 import org.springframework.context.annotation.Configuration;
 

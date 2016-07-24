@@ -1,4 +1,4 @@
-package com.itest.controller;
+package com.weteam.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

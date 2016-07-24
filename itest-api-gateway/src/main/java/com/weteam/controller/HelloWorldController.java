@@ -1,4 +1,4 @@
-package com.itest.controller;
+package com.weteam.controller;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class HelloWorldController {
 
     @RequestMapping("/tt")
     public String test() {
-        return "基于Spring Boot构建!!! @TAKA";
+        return "基于Spring Boot构建!!! @LarryKoo";
     }
 
 

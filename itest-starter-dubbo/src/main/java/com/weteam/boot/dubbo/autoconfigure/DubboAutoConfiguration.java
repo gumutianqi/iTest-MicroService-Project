@@ -17,10 +17,7 @@
 package com.weteam.boot.dubbo.autoconfigure;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.ProtocolConfig;
-import com.alibaba.dubbo.config.ProviderConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.config.*;
 import com.alibaba.dubbo.config.spring.AnnotationBean;
 import com.alibaba.dubbo.rpc.Exporter;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @ConditionalOnClass(Exporter.class)
-@EnableConfigurationProperties({DubboAnnotation.class, DubboApplication.class, DubboProtocol.class, DubboRegistry.class, DubboProvider.class})
+@EnableConfigurationProperties({DubboAnnotation.class, DubboApplication.class, DubboProtocol.class, DubboRegistry.class, DubboProvider.class, DubboMonitor.class})
 public class DubboAutoConfiguration {
 
     @Autowired
@@ -48,6 +45,9 @@ public class DubboAutoConfiguration {
 
     @Autowired
     private DubboRegistry dubboRegistry;
+
+    @Autowired
+    private DubboMonitor dubboMonitor;
 
     @Bean
     public static AnnotationBean annotationBean(@Value("${dubbo.annotation.package-name}") String packageName) {
@@ -94,19 +94,22 @@ public class DubboAutoConfiguration {
     @Bean
     public ProviderConfig providerConfig(ApplicationConfig applicationConfig,
                                          RegistryConfig registryConfig,
-                                         ProtocolConfig protocolConfig) {
+                                         ProtocolConfig protocolConfig,
+                                         MonitorConfig monitorConfig) {
         log.debug("ProviderConfig:{}", dubboProvider);
 
         ProviderConfig providerConfig = new ProviderConfig();
 
         providerConfig.setTimeout(dubboProvider.getTimeout());
         providerConfig.setRetries(dubboProvider.getRetries());
-        providerConfig.setFilter(dubboProvider.getFilter());
+//        providerConfig.setFilter(dubboProvider.getFilter());
         providerConfig.setDelay(dubboProvider.getDelay());
 
         providerConfig.setApplication(applicationConfig);
         providerConfig.setRegistry(registryConfig);
         providerConfig.setProtocol(protocolConfig);
+        providerConfig.setMonitor(monitorConfig);
+
 
         return providerConfig;
     }
@@ -119,9 +122,20 @@ public class DubboAutoConfiguration {
 
         registryConfig.setProtocol(dubboRegistry.getProtocol());
         registryConfig.setAddress(dubboRegistry.getAddress());
+        registryConfig.setPassword(dubboRegistry.getPassword());
         registryConfig.setRegister(dubboRegistry.isRegister());
         registryConfig.setSubscribe(dubboRegistry.isSubscribe());
 
         return registryConfig;
+    }
+
+    @Bean
+    public MonitorConfig monitorConfig() {
+        log.debug("MonitorConfig:{}", dubboMonitor);
+
+        MonitorConfig monitor = new MonitorConfig();
+        monitor.setProtocol(dubboMonitor.getProtocol());
+
+        return monitor;
     }
 }

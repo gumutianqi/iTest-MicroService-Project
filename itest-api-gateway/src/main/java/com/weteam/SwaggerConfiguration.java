@@ -1,4 +1,4 @@
-package com.itest;
+package com.weteam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

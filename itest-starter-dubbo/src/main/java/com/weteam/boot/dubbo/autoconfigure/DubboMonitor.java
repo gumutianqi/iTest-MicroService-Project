@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2009-2016, LarryKoo 老古 (gumutianqi@gmail.com)
- * Created on 16/7/24
+ * Created on 16/7/25
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,31 +20,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "dubbo.registry")
-public class DubboRegistry {
-
+@ConfigurationProperties(prefix = "dubbo.monitor")
+public class DubboMonitor {
     /**
      * 接口协议
      */
-    private String protocol = "redis";
-
-    /**
-     * 注册中心地址
-     */
-    private String address = "127.0.0.1:6379";
-
-    /**
-     * redis协议的密码
-     */
-    private String password = "larrykoo";
-
-    /**
-     * 是否向注册中心注册服务
-     */
-    private boolean register = true;
-
-    /**
-     * 是否向注册中心订阅服务
-     */
-    private boolean subscribe = true;
+    private String protocol = "registry";
 }
