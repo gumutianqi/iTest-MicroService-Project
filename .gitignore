@@ -8,5 +8,16 @@
 *.war
 *.ear
 
+*~
+.DS_Store
+desktop.ini
+*.swp
+target
+logs
+bin
+.settings
+*.iml
+*.idea
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
